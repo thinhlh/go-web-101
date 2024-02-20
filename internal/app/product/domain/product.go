@@ -1,4 +1,4 @@
-package product
+package domain
 
 import (
 	"errors"
@@ -15,7 +15,7 @@ type Product struct {
 }
 
 var (
-	ErrInvalidProductName = errors.New("Invalid Product Name!")
+	ErrInvalidProductName = errors.New("invalid Product Name!")
 )
 
 func New(name string, price float64, properties ProductProperty) (*Product, error) {

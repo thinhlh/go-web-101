@@ -3,7 +3,7 @@ package domain_test
 import (
 	"testing"
 
-	"github.com/thinhlh/go-web-101/internal/app/domain/product"
+	product "github.com/thinhlh/go-web-101/internal/app/product/domain"
 )
 
 func TestProduct_NewProduct(t *testing.T) {

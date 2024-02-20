@@ -1,32 +1,47 @@
 package server
 
 import (
-	"github.com/gin-gonic/gin"
-	"github.com/thinhlh/go-web-101/internal/app/presentation/category"
-	"github.com/thinhlh/go-web-101/internal/app/presentation/product"
+	"errors"
+	"log"
+	"net/http"
+
+	"github.com/thinhlh/go-web-101/internal/app/product/application"
+	"github.com/thinhlh/go-web-101/internal/app/product/infrastructure"
+	"github.com/thinhlh/go-web-101/internal/app/product/presentation"
+	"github.com/thinhlh/go-web-101/internal/core"
 )
 
 func New() {
-	r := gin.New()
 
-	r.Use(gin.Logger())
-	r.Use(gin.Recovery())
+	connection, err := core.NewDatabaseConnection()
 
-	api := r.Group("/api")
-	{
-		v1 := api.Group("/v1")
-		{
-			products := v1.Group("/products")
-			{
-				products.GET("/", product.FindAllProducts)
-			}
-
-			categories := v1.Group("/categories")
-			{
-				categories.GET("/", category.FindAllCategories)
-			}
-		}
+	if err != nil {
+		log.Fatalf("unable to connect to database, %v", err)
 	}
 
-	r.Run(":8080")
+	router := NewRouter(
+		presentation.NewProductController(
+			application.NewProductService(
+				infrastructure.NewProductRepository(
+					connection,
+				),
+			),
+		),
+	)
+
+	srv := &http.Server{
+		Addr:    ":8080",
+		Handler: router,
+	}
+
+	// go func() {
+	// 	// service connections
+	// 	if err := srv.ListenAndServe(); err != nil && !errors.Is(err, http.ErrServerClosed) {
+	// 		log.Fatalf("listen: %s\n", err)
+	// 	}
+	// }()
+
+	if err := srv.ListenAndServe(); err != nil && !errors.Is(err, http.ErrServerClosed) {
+		log.Fatalf("listen: %s\n", err)
+	}
 }

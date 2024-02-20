@@ -1,4 +1,4 @@
-package product
+package domain
 
 type ProductProperty struct {
 	Size  string
