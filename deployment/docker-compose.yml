@@ -1,0 +1,50 @@
+version: "3.0"
+services:
+  db:
+    image: postgres
+    container_name: go-web-101-db
+    environment:
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_DB
+    profiles:
+      - dependencies
+    volumes:
+      - go-web-101-db-volumes:/var/lib/postgresql/data
+    networks:
+      - go-web-101-network
+    ports:
+      - 5432:5432
+      - 5432
+    restart: always
+
+  app:
+    build:
+      context: ..
+      dockerfile: ./deployment/app.Dockerfile
+      args:
+        - SERVICE_NAME=server
+        - SERVICE_PORT=8080
+    # Command will be appended to entrypoint as arg
+    command: ["server"]
+    container_name: go-web-101-app
+    environment:
+      - DB_HOST
+      - DB_PORT
+      - DB_USER
+      - DB_PASSWORD
+      - DB_NAME
+    ports:
+      - 8080:8080
+    networks:
+      - go-web-101-network
+    depends_on:
+      - db
+
+networks:
+  go-web-101-network:
+    driver: bridge
+
+volumes:
+  go-web-101-db-volumes:
+    driver: local
