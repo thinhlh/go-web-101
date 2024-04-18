@@ -3,14 +3,12 @@ package server
 import (
 	"context"
 	"errors"
+	"fmt"
 	"log"
 	"net/http"
 	"time"
 
-	"github.com/thinhlh/go-web-101/internal/app/product/application"
-	"github.com/thinhlh/go-web-101/internal/app/product/infrastructure"
-	"github.com/thinhlh/go-web-101/internal/app/product/presentation"
-	bootmanager "github.com/thinhlh/go-web-101/internal/boot_manager"
+	bootmanager "github.com/thinhlh/go-web-101/internal/core/boot_manager"
 	"github.com/thinhlh/go-web-101/internal/core/config"
 	"github.com/thinhlh/go-web-101/internal/core/database"
 )
@@ -31,18 +29,10 @@ func New() bootmanager.Daemon {
 		panic(err)
 	}
 
-	router := NewRouter(
-		presentation.NewProductController(
-			application.NewProductService(
-				infrastructure.NewProductRepository(
-					connection,
-				),
-			),
-		),
-	)
+	router := NewRouter(config, connection)
 
 	srv := &http.Server{
-		Addr:    ":8080",
+		Addr:    fmt.Sprintf(":%v", config.ServerPort),
 		Handler: router,
 	}
 

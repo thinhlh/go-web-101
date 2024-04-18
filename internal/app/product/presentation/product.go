@@ -11,7 +11,7 @@ type ProductController struct {
 	productService application.ProductService
 }
 
-func NewProductController(service application.ProductServiceImpl) ProductController {
+func NewProductController(service application.ProductService) ProductController {
 	return ProductController{service}
 }
 

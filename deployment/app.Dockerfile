@@ -25,9 +25,10 @@ COPY --from=builder /bin/${SERVICE_NAME} /${SERVICE_NAME}
 
 # COPY static /static
 
-COPY ./deployment/entrypoint.sh entrypoint.sh
+COPY ./env/.env .env
+COPY ./deployment/scripts/entrypoint.sh entrypoint.sh
 
-RUN chmod +x /entrypoint.sh
+RUN chmod +x entrypoint.sh
 
 EXPOSE ${SERVICE_PORT}
 

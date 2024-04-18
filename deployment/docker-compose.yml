@@ -29,17 +29,18 @@ services:
     command: ["server"]
     container_name: go-web-101-app
     environment:
-      - DB_HOST
-      - DB_PORT
-      - DB_USER
-      - DB_PASSWORD
-      - DB_NAME
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_DB
+      - POSTGRES_HOST
+      - POSTGRES_PORT
     ports:
       - 8080:8080
     networks:
       - go-web-101-network
     depends_on:
       - db
+    restart: always
 
 networks:
   go-web-101-network:

@@ -28,8 +28,6 @@ func (r ProductRepositoryImpl) GetAllProducts() []domain.Product {
 	var res result
 	r.DB.Raw("SELECT 'Jamie' as name").Scan(&res)
 
-	fmt.Println(res.Name)
-
 	return make([]domain.Product, 0)
 }
 

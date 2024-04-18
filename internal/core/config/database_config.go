@@ -1,8 +1,6 @@
 package config
 
-import (
-	"github.com/spf13/viper"
-)
+import "github.com/spf13/viper"
 
 type DatabaseConfig struct {
 	DatabaseHost     string `mapstructure:"POSTGRES_HOST"`
@@ -12,26 +10,7 @@ type DatabaseConfig struct {
 	DatabasePassword string `mapstructure:"POSTGRES_PASSWORD"`
 }
 
-func newViperDatabaseConfig() *viper.Viper {
-	v := viper.New()
-
-	v.AddConfigPath(".")
-	v.SetConfigType("env")
-	v.SetConfigFile(".env")
-
-	err := v.ReadInConfig()
-
-	if err != nil {
-		panic(err)
-	}
-	v.AutomaticEnv()
-
-	return v
-}
-
-func loadDatabaseConfig() (DatabaseConfig, error) {
-	v := newViperDatabaseConfig()
-
+func loadDatabaseConfig(v *viper.Viper) (DatabaseConfig, error) {
 	var cfg DatabaseConfig
 	err := v.Unmarshal(&cfg)
 
