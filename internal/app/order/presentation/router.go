@@ -2,16 +2,15 @@ package presentation
 
 import (
 	"github.com/go-chi/chi/v5"
-	"github.com/go-chi/chi/v5/middleware"
 	"github.com/thinhlh/go-web-101/internal/core/config"
+	"github.com/thinhlh/go-web-101/internal/core/middlewares"
 	"gorm.io/gorm"
 )
 
 func NewOrderRouter(config config.Config, connection *gorm.DB) *chi.Mux {
 	r := chi.NewRouter()
 
-	r.Use(middleware.Logger)
-	r.Use(middleware.Recoverer)
+	middlewares.AttachRestMiddlewares(r, config)
 
 	orderController := NewOrderController()
 

@@ -8,7 +8,7 @@ pre-run:
 
 # Run dependencies only
 clear:
-	@docker compose -f deployment/docker-compose.yml down --rmi local
+	@docker compose -f deployment/docker-compose.yml down --rmi local --volumes
 
 # Install Golang dependencies
 install:

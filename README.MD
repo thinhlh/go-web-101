@@ -56,28 +56,38 @@
 
 # TODO items
 
-- [x] Dev Mode - Reload on changes
-- [x] Domain Driven architecture
-- [x] Application config
-- [x] Microservices project architecture
-- [x] Dockerfile & Docker compose
-- [ ] Database migration
-- [ ] Business Error handling
-- [ ] Sample CRUD
-- [ ] CI/CD pipeline
-- [ ] CQRS
-- [ ] BaseModule, BaseCRUD
-- [ ] Pagination
-- [ ] Locking mechanism
-- [ ] Feature flag
-- [ ] HttpServices
-- [ ] Auth
-- [ ] Logging, Tracing & Monitoring
-- [ ] Deployment
-- [ ] Caching
-- [ ] MessageQueue
-- [ ] GraphQL
-- [ ] gRPC
-- [ ] Monorepo
-- [ ] CMS Integration
-- [ ] High-level application architecture docs
+- Server Configs
+  - [x] [Cors](./internal/core/middlewares/middlewares.go)
+  - [x] [Healthcheck](./internal/core/middlewares/middlewares.go) (Heartbeat middleware)
+  - [x] [Profiller](./internal/core/middlewares/middlewares.go)
+  - [x] [Api Rate limiter](./internal/core/middlewares/middlewares.go)
+- Application Configs
+  - [x] Domain Driven architecture
+  - [x] [Application load config from file & env](./internal/core/config/config.go)
+  - [x] Microservices project architecture
+- Deployments
+  - [x] [Dockerfile & Docker compose](./deployment/)
+- Others
+
+  - [x] [Dev Mode - Reload on changes](./.air.product.toml)
+
+  - [ ] Database migration
+  - [ ] Business Error handling
+  - [ ] Sample CRUD
+  - [ ] CI/CD pipeline
+  - [ ] CQRS
+  - [ ] BaseModule, BaseCRUD
+  - [ ] Pagination
+  - [ ] Locking mechanism
+  - [ ] Feature flag
+  - [ ] HttpServices
+  - [ ] Auth
+  - [ ] Logging, Tracing & Monitoring
+  - [ ] Deployment
+  - [ ] Caching
+  - [ ] MessageQueue
+  - [ ] GraphQL
+  - [ ] gRPC
+  - [ ] Monorepo
+  - [ ] CMS Integration
+  - [ ] High-level application architecture docs

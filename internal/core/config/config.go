@@ -3,9 +3,10 @@ package config
 import "github.com/spf13/viper"
 
 type Config struct {
-	Database       DatabaseConfig
-	ProductService ProductServiceConfig
-	OrderService   OrderServiceConfig
+	Database           DatabaseConfig
+	ProductService     ProductServiceConfig
+	OrderService       OrderServiceConfig
+	ApiLimitByIpPerMin int `mapstructure:"API_LIMIT_BY_IP_PER_MIN"`
 }
 
 func newViper() *viper.Viper {

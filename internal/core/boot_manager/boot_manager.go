@@ -6,7 +6,7 @@ import (
 	"syscall"
 )
 
-var shutdownSignals = []os.Signal{syscall.SIGINT, syscall.SIGQUIT, syscall.SIGTERM}
+var shutdownSignals = []os.Signal{syscall.SIGHUP, syscall.SIGINT, syscall.SIGQUIT, syscall.SIGTERM}
 
 type Daemon func()
 

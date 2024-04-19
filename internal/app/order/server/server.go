@@ -65,6 +65,6 @@ func New() bootmanager.Daemon {
 		default:
 		}
 
-		log.Printf("Server exit!")
+		log.Printf("Server exit gracefully!")
 	}
 }
