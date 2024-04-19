@@ -18,26 +18,40 @@ services:
       - 5432
     restart: always
 
-  app:
+  product-service:
     build:
       context: ..
       dockerfile: ./deployment/app.Dockerfile
       args:
-        - SERVICE_NAME=server
+        - SERVICE_NAME=product_service
         - SERVICE_PORT=8080
     # Command will be appended to entrypoint as arg
-    command: ["server"]
-    container_name: go-web-101-app
-    environment:
-      - POSTGRES_USER
-      - POSTGRES_PASSWORD
-      - POSTGRES_DB
-      - POSTGRES_HOST
-      - POSTGRES_PORT
+    command: ["product_service"]
     ports:
       - 8080:8080
     networks:
       - go-web-101-network
+    profiles:
+      - "app"
+    depends_on:
+      - db
+    restart: always
+
+  order-service:
+    build:
+      context: ..
+      dockerfile: ./deployment/app.Dockerfile
+      args:
+        - SERVICE_NAME=order_service
+        - SERVICE_PORT=8081
+    # Command will be appended to entrypoint as arg
+    command: ["order_service"]
+    ports:
+      - 8081:8081
+    networks:
+      - go-web-101-network
+    profiles:
+      - "app"
     depends_on:
       - db
     restart: always

@@ -25,7 +25,7 @@ COPY --from=builder /bin/${SERVICE_NAME} /${SERVICE_NAME}
 
 # COPY static /static
 
-COPY ./env/.env .env
+COPY .env .env
 COPY ./deployment/scripts/entrypoint.sh entrypoint.sh
 
 RUN chmod +x entrypoint.sh

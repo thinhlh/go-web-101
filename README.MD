@@ -17,10 +17,10 @@
 2. Dev
     ```
     make pre-run
-    make run-dev
+    make -j2 services-dev
     ```
 3. Prod
     ```
     make pre-run
-    make run-dev
+    make -j2 services
     ```

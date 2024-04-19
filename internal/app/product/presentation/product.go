@@ -1,10 +1,11 @@
 package presentation
 
 import (
+	"encoding/json"
 	"net/http"
 
-	"github.com/gin-gonic/gin"
 	"github.com/thinhlh/go-web-101/internal/app/product/application"
+	"github.com/thinhlh/go-web-101/internal/core/dto"
 )
 
 type ProductController struct {
@@ -15,14 +16,17 @@ func NewProductController(service application.ProductService) ProductController 
 	return ProductController{service}
 }
 
-func (controller ProductController) GetProducts(c *gin.Context) {
+func (controller ProductController) GetProducts(w http.ResponseWriter, r *http.Request) {
 	result := controller.productService.GetAllProducts()
 
-	c.JSON(http.StatusOK, result)
+	w.WriteHeader(http.StatusOK)
+
+	json.NewEncoder(w).Encode(dto.NewSuccessResponse(result))
 }
 
-func (controller ProductController) GetProductById(c *gin.Context) {
+func (controller ProductController) GetProductById(w http.ResponseWriter, r *http.Request) {
 	result := controller.productService.GetProductById()
 
-	c.JSON(http.StatusOK, result)
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(result)
 }

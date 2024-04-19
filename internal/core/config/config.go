@@ -3,8 +3,9 @@ package config
 import "github.com/spf13/viper"
 
 type Config struct {
-	Database   DatabaseConfig
-	ServerPort int `mapstructure:"SERVER_PORT"`
+	Database       DatabaseConfig
+	ProductService ProductServiceConfig
+	OrderService   OrderServiceConfig
 }
 
 func newViper() *viper.Viper {
@@ -30,11 +31,23 @@ func LoadConfig() (Config, error) {
 
 	databaseConfig, err := loadDatabaseConfig(v)
 	if err != nil {
-		return cfg, err
+		panic(err)
+	}
+
+	productServiceConfig, err := loadProductServiceConfig(v)
+	if err != nil {
+		panic(err)
+	}
+
+	orderServiceConfig, err := loadOrderServiceConfig(v)
+	if err != nil {
+		panic(err)
 	}
 
 	cfg = Config{
-		Database: databaseConfig,
+		Database:       databaseConfig,
+		ProductService: productServiceConfig,
+		OrderService:   orderServiceConfig,
 	}
 
 	err = v.Unmarshal(&cfg)
@@ -43,5 +56,4 @@ func LoadConfig() (Config, error) {
 	}
 
 	return cfg, err
-
 }

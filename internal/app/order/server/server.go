@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/thinhlh/go-web-101/internal/app/order/presentation"
 	bootmanager "github.com/thinhlh/go-web-101/internal/core/boot_manager"
 	"github.com/thinhlh/go-web-101/internal/core/config"
 	"github.com/thinhlh/go-web-101/internal/core/database"
@@ -29,10 +30,10 @@ func New() bootmanager.Daemon {
 		panic(err)
 	}
 
-	router := NewRouter(config, connection)
+	router := presentation.NewOrderRouter(config, connection)
 
 	srv := &http.Server{
-		Addr:    fmt.Sprintf(":%v", config.ServerPort),
+		Addr:    fmt.Sprintf(":%v", config.OrderService.Port),
 		Handler: router,
 	}
 
@@ -50,6 +51,11 @@ func New() bootmanager.Daemon {
 		// DO SHUTDOWN & CLEANUP
 		if err := srv.Shutdown(ctx); err != nil {
 			log.Fatal("Server shutdown with error:", err)
+		}
+
+		db, err := connection.DB()
+		if err != nil || db.Close() != nil {
+			log.Fatal("Cannot close DB connection")
 		}
 
 		select {

@@ -15,7 +15,7 @@ type Product struct {
 }
 
 var (
-	ErrInvalidProductName = errors.New("invalid Product Name!")
+	ErrInvalidProductName = errors.New("invalid product name!")
 )
 
 func New(name string, price float64, properties ProductProperty) (*Product, error) {
