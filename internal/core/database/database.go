@@ -8,7 +8,9 @@ import (
 	"gorm.io/gorm"
 )
 
-func NewDatabaseConnection(config config.DatabaseConfig) (*gorm.DB, error) {
+type Database struct{ *gorm.DB }
+
+func NewDatabaseConnection(config config.DatabaseConfig) (*Database, error) {
 	gormConfig := &gorm.Config{}
 
 	dns := fmt.Sprintf(
@@ -19,5 +21,8 @@ func NewDatabaseConnection(config config.DatabaseConfig) (*gorm.DB, error) {
 		config.DatabaseName,
 		config.DatabasePort,
 	)
-	return gorm.Open(postgres.Open(dns), gormConfig)
+
+	connection, err := gorm.Open(postgres.Open(dns), gormConfig)
+
+	return &Database{connection}, err
 }

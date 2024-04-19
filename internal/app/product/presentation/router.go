@@ -5,11 +5,11 @@ import (
 	"github.com/thinhlh/go-web-101/internal/app/product/application"
 	"github.com/thinhlh/go-web-101/internal/app/product/infrastructure"
 	"github.com/thinhlh/go-web-101/internal/core/config"
+	"github.com/thinhlh/go-web-101/internal/core/database"
 	"github.com/thinhlh/go-web-101/internal/core/middlewares"
-	"gorm.io/gorm"
 )
 
-func NewProductRouter(config config.Config, connection *gorm.DB) *chi.Mux {
+func NewProductRouter(config config.Config, connection *database.Database) *chi.Mux {
 	r := chi.NewRouter()
 
 	middlewares.AttachRestMiddlewares(r, config)

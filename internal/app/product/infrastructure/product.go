@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/thinhlh/go-web-101/internal/app/product/domain"
-	"gorm.io/gorm"
+	"github.com/thinhlh/go-web-101/internal/core/database"
 )
 
 type ProductRepository interface {
@@ -12,12 +12,12 @@ type ProductRepository interface {
 	GetProductById() domain.Product
 }
 
-func NewProductRepository(db *gorm.DB) ProductRepository {
+func NewProductRepository(db *database.Database) ProductRepository {
 	return ProductRepositoryImpl{DB: db}
 }
 
 type ProductRepositoryImpl struct {
-	DB *gorm.DB
+	DB *database.Database
 }
 
 func (r ProductRepositoryImpl) GetAllProducts() []domain.Product {

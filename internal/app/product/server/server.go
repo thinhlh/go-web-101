@@ -30,6 +30,14 @@ func New() bootmanager.Daemon {
 		panic(err)
 	}
 
+	err = connection.Migration()
+	if err != nil {
+		log.Fatalf("unable to migration database, %v", err)
+		panic(err)
+	} else {
+		log.Println("database migration sucessfully")
+	}
+
 	router := presentation.NewProductRouter(config, connection)
 
 	srv := &http.Server{
@@ -53,7 +61,7 @@ func New() bootmanager.Daemon {
 			log.Fatal("Server shutdown with error:", err)
 		}
 
-		db, err := connection.DB()
+		db, err := connection.DB.DB()
 		if err != nil || db.Close() != nil {
 			log.Fatal("Cannot close DB connection")
 		}
