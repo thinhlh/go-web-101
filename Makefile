@@ -8,7 +8,7 @@ DOCKER_COMPOSE_FILE ?= deployment/docker-compose.yml
 #======= Boot ======#
 #===================#
 # Run with whole stack
-run-local:
+run:
 	@docker compose -f ${DOCKER_COMPOSE_FILE} --env-file .env --profile app --profile dependencies up --build
 
 # Run dependencies only

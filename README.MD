@@ -7,14 +7,14 @@
 - Makefile (optional)
 - Copy env
   ```
-  cp ./env/.env.example ./env/.env.dev
+  cp .env.example .env
   ```
 
 ## Boot
 
 1. Local (Boot whole stack)
    ```
-   make run-local
+   make run
    ```
 2. Dev
    ```
@@ -84,7 +84,7 @@
     // https://www.reddit.com/r/golang/comments/12mypec/how_do_you_handle_migrations/
     ```
 
-    - Current solution: Using golang-migration
+    - Current solution: Using golang-migration. Need to add a docker-compose version
 
     ```diff
     - No tracking & schema -> sql generation
