@@ -55,6 +55,7 @@ test:
 #===================#
 #=== Migrations ====#
 #===================#
+# Migration down with migration_msg = msg for all
 migration-create:
 	@docker run --rm -v /Users/hoangthinh/Data/Learning/Backend/go/go-web-101/migrations:/migrations --network host migrate/migrate -path=/migrations/ -database "postgres://thinhlh:thinhlh@localhost:5432/go_ecommerce?sslmode=disable" create -ext sql -dir /migrations $(migration_msg)
 

@@ -82,7 +82,22 @@
     - Does not isolate between infrastructure & application
     + Suggest using other tools that run migration before running application
     // https://www.reddit.com/r/golang/comments/12mypec/how_do_you_handle_migrations/
+    ```
 
+    - Current solution: Using golang-migration
+
+    ```diff
+    - No tracking & schema -> sql generation
+    - Have to write SQL up & down manually
+    + Separation of concern
+    ```
+
+    Usage
+
+    ```bash
+    make migration-create migration_msg="create_table_product" # Create new migration then filling up & down sql script
+    make migration-up step= # Up migration. step=N/"" for N step up or all up
+    make migration-down step= # Down migration. step=N/"-all" for N step down or all down
     ```
 
   - [ ] Linting & Commit Lint
