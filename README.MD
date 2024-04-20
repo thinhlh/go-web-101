@@ -65,13 +65,27 @@
   - [x] Domain Driven architecture
   - [x] [Application load config from file & env](./internal/core/config/config.go)
   - [x] Microservices project architecture
+  - [x] Base response for RestAPI
 - Deployments
   - [x] [Dockerfile & Docker compose](./deployment/)
 - Others
 
   - [x] [Dev Mode - Reload on changes](./.air.product.toml)
 
-  - [ ] Database migration
+  - [x] Database migration
+
+    - Using gorm AutoMigration
+
+    ```diff
+    - Does not have versioning strategy
+    - Does not support rollback
+    - Does not isolate between infrastructure & application
+    + Suggest using other tools that run migration before running application
+    // https://www.reddit.com/r/golang/comments/12mypec/how_do_you_handle_migrations/
+
+    ```
+
+  - [ ] Linting & Commit Lint
   - [ ] Business Error handling
   - [ ] Sample CRUD
   - [ ] CI/CD pipeline
