@@ -1,14 +1,23 @@
+#===================#
+#== Env Variables ==#
+#===================#
+include .env
+DOCKER_COMPOSE_FILE ?= deployment/docker-compose.yml
+
+#===================#
+#======= Boot ======#
+#===================#
 # Run with whole stack
 run-local:
-	@docker compose -f deployment/docker-compose.yml --env-file .env --profile app --profile dependencies up --build
+	@docker compose -f ${DOCKER_COMPOSE_FILE} --env-file .env --profile app --profile dependencies up --build
 
 # Run dependencies only
 pre-run:
-	@docker compose --profile dependencies -f deployment/docker-compose.yml --env-file .env up --build
+	@docker compose --profile dependencies -f ${DOCKER_COMPOSE_FILE} --env-file .env up --build
 
 # Run dependencies only
 clear:
-	@docker compose -f deployment/docker-compose.yml down --rmi local --volumes
+	@docker compose -f ${DOCKER_COMPOSE_FILE} down --rmi local -v --remove-orphans
 
 # Install Golang dependencies
 install:
@@ -41,3 +50,18 @@ build:
 # Test
 test:
 	@go test -v ./...
+
+
+#===================#
+#=== Migrations ====#
+#===================#
+migration-create:
+	@docker run --rm -v /Users/hoangthinh/Data/Learning/Backend/go/go-web-101/migrations:/migrations --network host migrate/migrate -path=/migrations/ -database "postgres://thinhlh:thinhlh@localhost:5432/go_ecommerce?sslmode=disable" create -ext sql -dir /migrations $(migration_msg)
+
+# Migration down with step = N / {{space}} for all
+migration-up:
+	@docker run --rm -v /Users/hoangthinh/Data/Learning/Backend/go/go-web-101/migrations:/migrations --network host migrate/migrate -path=/migrations/ -database "postgres://thinhlh:thinhlh@localhost:5432/go_ecommerce?sslmode=disable" up ${step}
+
+# Migration down with step = N / -all
+migration-down:
+	@echo y | docker run --rm -v /Users/hoangthinh/Data/Learning/Backend/go/go-web-101/migrations:/migrations --network host migrate/migrate -path=/migrations/ -database "postgres://thinhlh:thinhlh@localhost:5432/go_ecommerce?sslmode=disable" down ${step}
