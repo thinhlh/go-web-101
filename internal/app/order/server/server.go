@@ -30,14 +30,6 @@ func New() bootmanager.Daemon {
 		panic(err)
 	}
 
-	err = connection.Migration()
-	if err != nil {
-		log.Fatalf("unable to migration database, %v", err)
-		panic(err)
-	} else {
-		log.Println("database migration sucessfully")
-	}
-
 	router := presentation.NewOrderRouter(config, connection)
 
 	srv := &http.Server{
