@@ -44,6 +44,8 @@ func New() bootmanager.Daemon {
 		}
 	}()
 
+	log.Printf("server is listening on port %v", config.OrderService.Port)
+
 	return func() {
 		ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 		defer cancel()

@@ -37,6 +37,8 @@ func New() bootmanager.Daemon {
 		Handler: router,
 	}
 
+	log.Printf("server is listening on port %v", config.ProductService.Port)
+
 	go func() {
 		// Run server in another goroutine & let the returned function as clean up func
 		if err := srv.ListenAndServe(); err != nil && !errors.Is(err, http.ErrServerClosed) {
