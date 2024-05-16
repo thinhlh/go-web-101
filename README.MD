@@ -19,12 +19,12 @@
 2. Dev
    ```
    make pre-run
-   make -j2 services-dev
+   make services-dev
    ```
 3. Prod
    ```
    make pre-run
-   make -j2 services
+   make services
    ```
 
 > A production ready GoLabg template with Domain Driven Design architecture and predefined configurations
