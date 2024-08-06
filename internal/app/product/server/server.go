@@ -52,21 +52,21 @@ func New() bootmanager.Daemon {
 
 		// DO SHUTDOWN & CLEANUP
 		if err := srv.Shutdown(ctx); err != nil {
-			log.Fatal("Server shutdown with error:", err)
+			log.Fatal("server shutdown with error:", err)
 		}
 
 		db, err := connection.DB.DB()
 		if err != nil || db.Close() != nil {
-			log.Fatal("Cannot close DB connection")
+			log.Fatal("cannot close DB connection")
 		}
 
 		select {
 		// catching ctx.Done(). timeout of 5 seconds.
 		case <-ctx.Done():
-			log.Printf("Server exiting timeout!")
+			log.Printf("server exiting timeout!")
 		default:
 		}
 
-		log.Printf("Server exit gracefully!")
+		log.Printf("server exit gracefully!")
 	}
 }
